@@ -1,0 +1,72 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet author="deniz.ozen" id="HIBERNATE_SEQUENCE">
+	    <createSequence
+	            cycle="false"
+	            incrementBy="1"
+	            schemaName="PUBLIC"
+	            sequenceName="HIBERNATE_SEQUENCE"
+	            startValue="1"/>
+	</changeSet>	
+	
+	<changeSet author="deniz.ozen" id="1481228428151-2">
+		<createTable tableName="PLAYERS">
+			<column name="id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="VARCHAR(255)" />
+			<column name="age" type="INT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="deniz.ozen" id="1481228428151-4">
+		<createTable tableName="GUESSES">
+			<column name="id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="letter" type="VARCHAR(2)" />
+			<column name="game_id" type="INT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="deniz.ozen" id="1481228428151-5">
+		<createTable tableName="GAMES">
+			<column name="id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="word" type="VARCHAR(255)" />
+			<column name="game_status" type="VARCHAR(15)" />
+			<column name="guesses_left" type="INT" />
+			<column name="player_id" type="INT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="deniz.ozen" id="1481228428151-6">
+		<addPrimaryKey columnNames="id" constraintName="PRIMARY6" tableName="GUESSES" />
+	</changeSet>
+	<changeSet author="deniz.ozen" id="1481228428151-7">
+		<addPrimaryKey columnNames="id" constraintName="PRIMARY7" tableName="GAMES" />
+	</changeSet>
+	<changeSet author="deniz.ozen" id="1481228428151-8">
+		<addPrimaryKey columnNames="id" constraintName="PRIMARY8" tableName="PLAYERS" />
+	</changeSet>
+	<changeSet author="deniz.ozen" id="1481228428151-10">
+		<createIndex indexName="FK5i52bhmm0nbq6lrbur63anlmc" tableName="GUESSES">
+			<column name="game_id" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="deniz.ozen" id="1481228428151-11">
+		<createIndex indexName="FKltwgxx90mecmtevf8038t64sh" tableName="GAMES">
+			<column name="player_id" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="deniz.ozen" id="1481228428151-12">
+		<addForeignKeyConstraint baseColumnNames="game_id" baseTableName="GUESSES" constraintName="FK5i52bhmm0nbq6lrbur63anlmc" deferrable="false" initiallyDeferred="false"
+			onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="GAMES" />
+	</changeSet>
+	<changeSet author="deniz.ozen" id="1481228428151-13">
+		<addForeignKeyConstraint baseColumnNames="player_id" baseTableName="GAMES" constraintName="FKltwgxx90mecmtevf8038t64sh" deferrable="false" initiallyDeferred="false"
+			onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="PLAYERS" />
+	</changeSet>
+		
+</databaseChangeLog>
